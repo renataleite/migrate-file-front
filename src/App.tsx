@@ -21,10 +21,13 @@ const App = () => {
       formDataToSend.append("file", formData.file);
     }
 
-    const response = await fetch("https://localhost:7212/RegisterFile", {
-      method: "POST",
-      body: formDataToSend,
-    });
+    const response = await fetch(
+      "https://migrate-files-backend-production1.up.railway.app/RegisterFile",
+      {
+        method: "POST",
+        body: formDataToSend,
+      }
+    );
 
     if (response.ok) {
       const result = await response.json();
