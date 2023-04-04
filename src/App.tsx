@@ -75,8 +75,8 @@ const App = () => {
         </Form>
         {success && (
           <textarea
-            className="w-50 mt-5"
-            style={{ minHeight: "15vh" }}
+            className="w-100 mt-5"
+            style={{ minHeight: "50vh" }}
             name="description"
             value={result.text}
           ></textarea>
