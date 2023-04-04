@@ -34,7 +34,7 @@ const App = () => {
       formDataToSend.append("term", searchTerm);
     }
     const response = await fetch(
-      "https://migrate-txt-api-production.up.railway.app/",
+      "https://migrate-txt-api-production.up.railway.app/register-file",
       {
         method: "POST",
         body: formDataToSend,
