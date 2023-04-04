@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 
 interface FormData {
   file: File | null;
@@ -50,17 +50,28 @@ const App = () => {
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formFile">
-          <Form.Label>File:</Form.Label>
-          <Form.Control type="file" name="file" onChange={handleFileChange} />
-        </Form.Group>
+      <Container className="d-flex flex-column align-items-center justify-content-center mt-5">
+        <h1>Formulário de arquivos .txt</h1>
+        <Form
+          onSubmit={handleSubmit}
+          style={{ height: "20vh" }}
+          className="d-flex align-items-center justify-content-center gap-4"
+        >
+          <Form.Group controlId="formFile">
+            <Form.Label>Escolha um arquivo de extensão .txt:</Form.Label>
+            <Form.Control type="file" name="file" onChange={handleFileChange} />
+          </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-      <p>{result}</p>
+          <Button variant="primary" type="submit">
+            Enviar
+          </Button>
+        </Form>
+        {result && (
+          <textarea className="w-50" style={{ minHeight: "15vh" }}>
+            {result}
+          </textarea>
+        )}
+      </Container>
     </>
   );
 };
