@@ -22,7 +22,7 @@ const App = () => {
     }
 
     const response = await fetch(
-      "https://migrate-files-backend-production1.up.railway.app/RegisterFile",
+      "https://migrate-txt-api-production.up.railway.app/register-file",
       {
         method: "POST",
         body: formDataToSend,
