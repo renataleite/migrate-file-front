@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, FormControl } from "react-bootstrap";
 
 interface FormData {
   file: File | null;
@@ -19,8 +19,9 @@ const App = () => {
     fileName: "",
     text: "",
   });
-
   const [success, setSuccess] = useState<boolean>(false);
+
+  const [searchTerm, setSearchTerm] = React.useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -29,14 +30,13 @@ const App = () => {
     if (formData.file) {
       formDataToSend.append("file", formData.file);
     }
-
-    const response = await fetch(
-      "https://migrate-txt-api-production.up.railway.app/register-file",
-      {
-        method: "POST",
-        body: formDataToSend,
-      }
-    );
+    if (searchTerm) {
+      formDataToSend.append("term", searchTerm);
+    }
+    const response = await fetch("https://localhost:7262/register-file", {
+      method: "POST",
+      body: formDataToSend,
+    });
 
     if (response.ok) {
       const result = await response.json();
@@ -74,12 +74,25 @@ const App = () => {
           </Button>
         </Form>
         {success && (
-          <textarea
-            className="w-100 mt-5"
-            style={{ minHeight: "50vh" }}
-            name="description"
-            value={result.text}
-          ></textarea>
+          <>
+            <Form onSubmit={handleSubmit} className="d-flex w-100 gap-4 mt-5">
+              <FormControl
+                type="text"
+                placeholder="Digite sua pesquisa"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+              />
+              <Button variant="primary" type="submit">
+                Pesquisar
+              </Button>
+            </Form>
+
+            <pre
+              className="w-100 mt-5"
+              style={{ minHeight: "50vh" }}
+              dangerouslySetInnerHTML={{ __html: result.text }}
+            ></pre>
+          </>
         )}
       </Container>
     </>
