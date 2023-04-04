@@ -33,10 +33,13 @@ const App = () => {
     if (searchTerm) {
       formDataToSend.append("term", searchTerm);
     }
-    const response = await fetch("https://localhost:7262/register-file", {
-      method: "POST",
-      body: formDataToSend,
-    });
+    const response = await fetch(
+      "https://migrate-txt-api-production.up.railway.app/",
+      {
+        method: "POST",
+        body: formDataToSend,
+      }
+    );
 
     if (response.ok) {
       const result = await response.json();
